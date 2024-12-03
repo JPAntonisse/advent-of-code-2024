@@ -51,13 +51,10 @@ def is_report_dampening(report):
     Checks if the report can pass by dampening
     :param report:
     """
-    print()
-    print(report)
     # Get the differential
     for index, level in enumerate(report):
         # Exclude the current element using np.delete
         temp_report = np.delete(report, index)
-        print(temp_report)
 
         # Check if valid
         if is_report_save(report=temp_report):
