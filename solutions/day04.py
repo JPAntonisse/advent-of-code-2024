@@ -62,8 +62,8 @@ def count_kernel_matches(window, kernels):
     count = 0
     for kernel in kernels:
         conduit = kernel != '.'
-        equal = np.equal(window, kernel)
-        if np.equal(conduit, equal).all():
+        match = np.equal(window, kernel)
+        if np.all(match[conduit] == True):
             count += 1
     return count
 
@@ -75,12 +75,11 @@ kernels = generate_kernels(kernel_x=kernel_1, kernel_y=kernel_2)
 word_search = pad_with_kernel_size(input_array=word_search, kernels=kernels)
 
 # # Go through every point in the padded search space, and check if a kernel matches
-# count = apply_sliding_window(input_array=word_search, kernels=kernels, func=count_kernel_matches)
-#
-# print(count)
+count = apply_sliding_window(input_array=word_search, kernels=kernels, func=count_kernel_matches)
+
+print(f"Part one: {count}")
 
 # Part 2
-# Very nice
 
 kernels_xmas = np.array([
     [
@@ -89,13 +88,23 @@ kernels_xmas = np.array([
         ['M', '.', 'S'],
     ],
     [
+        ['M', '.', 'M'],
+        ['.', 'A', '.'],
+        ['S', '.', 'S'],
+    ],
+    [
         ['S', '.', 'M'],
         ['.', 'A', '.'],
         ['S', '.', 'M'],
+    ],
+    [
+        ['S', '.', 'S'],
+        ['.', 'A', '.'],
+        ['M', '.', 'M'],
     ],
 ])
 
 # Go through every point in the padded search space, and check if a kernel matches
 count = apply_sliding_window(input_array=word_search, kernels=kernels_xmas, func=count_kernel_matches)
 
-print(count)
+print(f"Part two: {count}")
